@@ -1,0 +1,2259 @@
+{
+ "count": 563,
+ "namespace": "gui",
+ "source": "client-26.3.jar",
+ "textures": {
+  "textures/gui/advancements/backgrounds/adventure.png": [
+   16,
+   16
+  ],
+  "textures/gui/advancements/backgrounds/end.png": [
+   16,
+   16
+  ],
+  "textures/gui/advancements/backgrounds/husbandry.png": [
+   16,
+   16
+  ],
+  "textures/gui/advancements/backgrounds/nether.png": [
+   16,
+   16
+  ],
+  "textures/gui/advancements/backgrounds/stone.png": [
+   16,
+   16
+  ],
+  "textures/gui/advancements/window.png": [
+   256,
+   256
+  ],
+  "textures/gui/book.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/anvil.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/beacon.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/blast_furnace.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/brewing_stand.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/cartography_table.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/crafter.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/crafting_table.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/creative_inventory/tab_inventory.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/creative_inventory/tab_item_search.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/creative_inventory/tab_items.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/dispenser.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/enchanting_table.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/furnace.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/gamemode_switcher.png": [
+   128,
+   128
+  ],
+  "textures/gui/container/generic_54.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/grindstone.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/hopper.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/horse.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/inventory.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/loom.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/nautilus.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/shulker_box.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/smithing.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/smoker.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/stonecutter.png": [
+   256,
+   256
+  ],
+  "textures/gui/container/villager.png": [
+   512,
+   256
+  ],
+  "textures/gui/footer_separator.png": [
+   32,
+   2
+  ],
+  "textures/gui/hanging_signs/acacia.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/bamboo.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/birch.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/cherry.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/crimson.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/dark_oak.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/jungle.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/mangrove.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/oak.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/pale_oak.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/poplar.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/spruce.png": [
+   16,
+   16
+  ],
+  "textures/gui/hanging_signs/warped.png": [
+   16,
+   16
+  ],
+  "textures/gui/header_separator.png": [
+   32,
+   2
+  ],
+  "textures/gui/inworld_footer_separator.png": [
+   32,
+   2
+  ],
+  "textures/gui/inworld_header_separator.png": [
+   32,
+   2
+  ],
+  "textures/gui/inworld_menu_background.png": [
+   16,
+   16
+  ],
+  "textures/gui/inworld_menu_list_background.png": [
+   16,
+   16
+  ],
+  "textures/gui/menu_background.png": [
+   16,
+   16
+  ],
+  "textures/gui/menu_list_background.png": [
+   16,
+   16
+  ],
+  "textures/gui/presets/isles.png": [
+   256,
+   256
+  ],
+  "textures/gui/realms/adventure.png": [
+   256,
+   256
+  ],
+  "textures/gui/realms/empty_frame.png": [
+   16,
+   16
+  ],
+  "textures/gui/realms/experience.png": [
+   256,
+   256
+  ],
+  "textures/gui/realms/friends.png": [
+   64,
+   36
+  ],
+  "textures/gui/realms/inspiration.png": [
+   256,
+   256
+  ],
+  "textures/gui/realms/minigames.png": [
+   64,
+   36
+  ],
+  "textures/gui/realms/new_world.png": [
+   256,
+   256
+  ],
+  "textures/gui/realms/no_realms.png": [
+   130,
+   64
+  ],
+  "textures/gui/realms/private_server.png": [
+   64,
+   36
+  ],
+  "textures/gui/realms/snapshot_realms.png": [
+   130,
+   64
+  ],
+  "textures/gui/realms/survival_spawn.png": [
+   256,
+   256
+  ],
+  "textures/gui/realms/upload.png": [
+   256,
+   256
+  ],
+  "textures/gui/recipe_book.png": [
+   256,
+   256
+  ],
+  "textures/gui/signs/acacia.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/bamboo.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/birch.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/cherry.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/crimson.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/dark_oak.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/jungle.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/mangrove.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/oak.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/pale_oak.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/poplar.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/spruce.png": [
+   24,
+   26
+  ],
+  "textures/gui/signs/warped.png": [
+   24,
+   26
+  ],
+  "textures/gui/sprites/advancements/box_obtained.png": [
+   200,
+   26
+  ],
+  "textures/gui/sprites/advancements/box_unobtained.png": [
+   200,
+   26
+  ],
+  "textures/gui/sprites/advancements/challenge_frame_obtained.png": [
+   26,
+   26
+  ],
+  "textures/gui/sprites/advancements/challenge_frame_unobtained.png": [
+   26,
+   26
+  ],
+  "textures/gui/sprites/advancements/goal_frame_obtained.png": [
+   26,
+   26
+  ],
+  "textures/gui/sprites/advancements/goal_frame_unobtained.png": [
+   26,
+   26
+  ],
+  "textures/gui/sprites/advancements/tab_above_left.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_above_left_selected.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_above_middle.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_above_middle_selected.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_above_right.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_above_right_selected.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_below_left.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_below_left_selected.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_below_middle.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_below_middle_selected.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_below_right.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_below_right_selected.png": [
+   28,
+   32
+  ],
+  "textures/gui/sprites/advancements/tab_left_bottom.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_left_bottom_selected.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_left_middle.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_left_middle_selected.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_left_top.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_left_top_selected.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_right_bottom.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_right_bottom_selected.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_right_middle.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_right_middle_selected.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_right_top.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/tab_right_top_selected.png": [
+   32,
+   28
+  ],
+  "textures/gui/sprites/advancements/task_frame_obtained.png": [
+   26,
+   26
+  ],
+  "textures/gui/sprites/advancements/task_frame_unobtained.png": [
+   26,
+   26
+  ],
+  "textures/gui/sprites/advancements/title_box.png": [
+   200,
+   26
+  ],
+  "textures/gui/sprites/boss_bar/blue_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/blue_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/green_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/green_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/notched_10_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/notched_10_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/notched_12_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/notched_12_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/notched_20_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/notched_20_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/notched_6_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/notched_6_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/pink_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/pink_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/purple_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/purple_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/red_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/red_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/white_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/white_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/yellow_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/boss_bar/yellow_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/container/anvil/error.png": [
+   28,
+   21
+  ],
+  "textures/gui/sprites/container/anvil/text_field.png": [
+   110,
+   16
+  ],
+  "textures/gui/sprites/container/anvil/text_field_disabled.png": [
+   110,
+   16
+  ],
+  "textures/gui/sprites/container/beacon/button.png": [
+   22,
+   22
+  ],
+  "textures/gui/sprites/container/beacon/button_disabled.png": [
+   22,
+   22
+  ],
+  "textures/gui/sprites/container/beacon/button_highlighted.png": [
+   22,
+   22
+  ],
+  "textures/gui/sprites/container/beacon/button_selected.png": [
+   22,
+   22
+  ],
+  "textures/gui/sprites/container/beacon/cancel.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/container/beacon/confirm.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/container/blast_furnace/burn_progress.png": [
+   24,
+   16
+  ],
+  "textures/gui/sprites/container/blast_furnace/lit_progress.png": [
+   14,
+   14
+  ],
+  "textures/gui/sprites/container/brewing_stand/brew_progress.png": [
+   9,
+   28
+  ],
+  "textures/gui/sprites/container/brewing_stand/bubbles.png": [
+   12,
+   29
+  ],
+  "textures/gui/sprites/container/brewing_stand/fuel_length.png": [
+   18,
+   4
+  ],
+  "textures/gui/sprites/container/bundle/bundle_progressbar_border.png": [
+   12,
+   12
+  ],
+  "textures/gui/sprites/container/bundle/bundle_progressbar_fill.png": [
+   6,
+   6
+  ],
+  "textures/gui/sprites/container/bundle/bundle_progressbar_full.png": [
+   6,
+   6
+  ],
+  "textures/gui/sprites/container/bundle/slot_background.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/container/bundle/slot_highlight_back.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/container/bundle/slot_highlight_front.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/container/cartography_table/duplicated_map.png": [
+   50,
+   66
+  ],
+  "textures/gui/sprites/container/cartography_table/error.png": [
+   28,
+   21
+  ],
+  "textures/gui/sprites/container/cartography_table/locked.png": [
+   10,
+   14
+  ],
+  "textures/gui/sprites/container/cartography_table/map.png": [
+   66,
+   66
+  ],
+  "textures/gui/sprites/container/cartography_table/scaled_map.png": [
+   66,
+   66
+  ],
+  "textures/gui/sprites/container/crafter/disabled_slot.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/container/crafter/powered_redstone.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/crafter/unpowered_redstone.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/creative_inventory/scroller.png": [
+   12,
+   15
+  ],
+  "textures/gui/sprites/container/creative_inventory/scroller_disabled.png": [
+   12,
+   15
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_selected_1.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_selected_2.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_selected_3.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_selected_4.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_selected_5.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_selected_6.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_selected_7.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_unselected_1.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_unselected_2.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_unselected_3.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_unselected_4.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_unselected_5.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_unselected_6.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_bottom_unselected_7.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_selected_1.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_selected_2.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_selected_3.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_selected_4.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_selected_5.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_selected_6.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_selected_7.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_unselected_1.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_unselected_2.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_unselected_3.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_unselected_4.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_unselected_5.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_unselected_6.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/creative_inventory/tab_top_unselected_7.png": [
+   26,
+   32
+  ],
+  "textures/gui/sprites/container/enchanting_table/enchantment_slot.png": [
+   108,
+   19
+  ],
+  "textures/gui/sprites/container/enchanting_table/enchantment_slot_disabled.png": [
+   108,
+   19
+  ],
+  "textures/gui/sprites/container/enchanting_table/enchantment_slot_highlighted.png": [
+   108,
+   19
+  ],
+  "textures/gui/sprites/container/enchanting_table/level_1.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/enchanting_table/level_1_disabled.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/enchanting_table/level_2.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/enchanting_table/level_2_disabled.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/enchanting_table/level_3.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/enchanting_table/level_3_disabled.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/furnace/burn_progress.png": [
+   24,
+   16
+  ],
+  "textures/gui/sprites/container/furnace/lit_progress.png": [
+   14,
+   14
+  ],
+  "textures/gui/sprites/container/grindstone/error.png": [
+   28,
+   21
+  ],
+  "textures/gui/sprites/container/horse/chest_slots.png": [
+   90,
+   54
+  ],
+  "textures/gui/sprites/container/inventory/effect_background.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/container/inventory/effect_background_ambient.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/container/loom/error.png": [
+   26,
+   26
+  ],
+  "textures/gui/sprites/container/loom/pattern.png": [
+   14,
+   14
+  ],
+  "textures/gui/sprites/container/loom/pattern_highlighted.png": [
+   14,
+   14
+  ],
+  "textures/gui/sprites/container/loom/pattern_selected.png": [
+   14,
+   14
+  ],
+  "textures/gui/sprites/container/loom/scroller.png": [
+   12,
+   15
+  ],
+  "textures/gui/sprites/container/loom/scroller_disabled.png": [
+   12,
+   15
+  ],
+  "textures/gui/sprites/container/slot.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/container/slot/amethyst_shard.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/axe.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/banner.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/banner_pattern.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/boots.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/brewing_fuel.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/chestplate.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/diamond.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/dye.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/emerald.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/helmet.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/hoe.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/horse_armor.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/ingot.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/lapis_lazuli.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/leggings.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/llama_armor.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/nautilus_armor.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/nautilus_armor_inventory.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/pickaxe.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/potion.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/quartz.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/redstone_dust.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/saddle.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/shield.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/shovel.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/smithing_template_armor_trim.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/smithing_template_netherite_upgrade.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/spear.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot/sword.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/container/slot_highlight_back.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/container/slot_highlight_front.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/container/smithing/error.png": [
+   28,
+   21
+  ],
+  "textures/gui/sprites/container/smoker/burn_progress.png": [
+   24,
+   16
+  ],
+  "textures/gui/sprites/container/smoker/lit_progress.png": [
+   14,
+   14
+  ],
+  "textures/gui/sprites/container/stonecutter/recipe.png": [
+   16,
+   18
+  ],
+  "textures/gui/sprites/container/stonecutter/recipe_highlighted.png": [
+   16,
+   18
+  ],
+  "textures/gui/sprites/container/stonecutter/recipe_selected.png": [
+   16,
+   18
+  ],
+  "textures/gui/sprites/container/stonecutter/scroller.png": [
+   12,
+   15
+  ],
+  "textures/gui/sprites/container/stonecutter/scroller_disabled.png": [
+   12,
+   15
+  ],
+  "textures/gui/sprites/container/villager/discount_strikethrough.png": [
+   9,
+   2
+  ],
+  "textures/gui/sprites/container/villager/experience_bar_background.png": [
+   102,
+   5
+  ],
+  "textures/gui/sprites/container/villager/experience_bar_current.png": [
+   102,
+   5
+  ],
+  "textures/gui/sprites/container/villager/experience_bar_result.png": [
+   102,
+   5
+  ],
+  "textures/gui/sprites/container/villager/out_of_stock.png": [
+   28,
+   21
+  ],
+  "textures/gui/sprites/container/villager/scroller.png": [
+   6,
+   27
+  ],
+  "textures/gui/sprites/container/villager/scroller_disabled.png": [
+   6,
+   27
+  ],
+  "textures/gui/sprites/container/villager/trade_arrow.png": [
+   10,
+   9
+  ],
+  "textures/gui/sprites/container/villager/trade_arrow_out_of_stock.png": [
+   10,
+   9
+  ],
+  "textures/gui/sprites/dialog/warning_button.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/dialog/warning_button_disabled.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/dialog/warning_button_highlighted.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/friends/accept.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/friends/accept_highlighted.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/friends/background.png": [
+   236,
+   34
+  ],
+  "textures/gui/sprites/friends/background_dark.png": [
+   236,
+   34
+  ],
+  "textures/gui/sprites/friends/button.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/friends/button_disabled.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/friends/button_highlighted.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/friends/cancel.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/friends/friends.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/friends/illustrations_00.png": [
+   128,
+   48
+  ],
+  "textures/gui/sprites/friends/list_separator_top.png": [
+   32,
+   2
+  ],
+  "textures/gui/sprites/friends/loading.png": [
+   5,
+   6
+  ],
+  "textures/gui/sprites/friends/reject.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/friends/reject_highlighted.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/friends/remove.png": [
+   14,
+   13
+  ],
+  "textures/gui/sprites/friends/send_request.png": [
+   15,
+   15
+  ],
+  "textures/gui/sprites/friends/toast_background.png": [
+   160,
+   32
+  ],
+  "textures/gui/sprites/gamemode_switcher/selection.png": [
+   26,
+   26
+  ],
+  "textures/gui/sprites/gamemode_switcher/slot.png": [
+   26,
+   26
+  ],
+  "textures/gui/sprites/hud/air.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/air_bursting.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/air_empty.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/armor_empty.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/armor_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/armor_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/crosshair.png": [
+   15,
+   15
+  ],
+  "textures/gui/sprites/hud/crosshair_attack_indicator_background.png": [
+   16,
+   4
+  ],
+  "textures/gui/sprites/hud/crosshair_attack_indicator_full.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/hud/crosshair_attack_indicator_progress.png": [
+   16,
+   4
+  ],
+  "textures/gui/sprites/hud/effect_background.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/hud/effect_background_ambient.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/hud/experience_bar_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/hud/experience_bar_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/hud/food_empty.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/food_empty_hunger.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/food_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/food_full_hunger.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/food_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/food_half_hunger.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/absorbing_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/absorbing_full_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/absorbing_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/absorbing_half_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/absorbing_hardcore_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/absorbing_hardcore_full_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/absorbing_hardcore_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/absorbing_hardcore_half_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/container.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/container_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/container_hardcore.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/container_hardcore_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/frozen_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/frozen_full_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/frozen_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/frozen_half_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/frozen_hardcore_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/frozen_hardcore_full_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/frozen_hardcore_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/frozen_hardcore_half_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/full_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/half_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/hardcore_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/hardcore_full_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/hardcore_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/hardcore_half_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/poisoned_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/poisoned_full_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/poisoned_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/poisoned_half_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/poisoned_hardcore_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/poisoned_hardcore_full_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/poisoned_hardcore_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/poisoned_hardcore_half_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/vehicle_container.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/vehicle_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/vehicle_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/withered_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/withered_full_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/withered_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/withered_half_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/withered_hardcore_full.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/withered_hardcore_full_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/withered_hardcore_half.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/heart/withered_hardcore_half_blinking.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/hotbar.png": [
+   182,
+   22
+  ],
+  "textures/gui/sprites/hud/hotbar_attack_indicator_background.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/hud/hotbar_attack_indicator_progress.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/hud/hotbar_offhand_left.png": [
+   29,
+   24
+  ],
+  "textures/gui/sprites/hud/hotbar_offhand_right.png": [
+   29,
+   24
+  ],
+  "textures/gui/sprites/hud/hotbar_selection.png": [
+   24,
+   23
+  ],
+  "textures/gui/sprites/hud/jump_bar_background.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/hud/jump_bar_cooldown.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/hud/jump_bar_progress.png": [
+   182,
+   5
+  ],
+  "textures/gui/sprites/hud/locator_bar_arrow_down.png": [
+   7,
+   10
+  ],
+  "textures/gui/sprites/hud/locator_bar_arrow_up.png": [
+   7,
+   10
+  ],
+  "textures/gui/sprites/hud/locator_bar_background.png": [
+   12,
+   5
+  ],
+  "textures/gui/sprites/hud/locator_bar_dot/bowtie.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/locator_bar_dot/default_0.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/locator_bar_dot/default_1.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/locator_bar_dot/default_2.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/hud/locator_bar_dot/default_3.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/icon/accessibility.png": [
+   15,
+   15
+  ],
+  "textures/gui/sprites/icon/chat_modified.png": [
+   9,
+   9
+  ],
+  "textures/gui/sprites/icon/checkmark.png": [
+   9,
+   8
+  ],
+  "textures/gui/sprites/icon/draft_report.png": [
+   15,
+   15
+  ],
+  "textures/gui/sprites/icon/info.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/icon/invite.png": [
+   14,
+   14
+  ],
+  "textures/gui/sprites/icon/language.png": [
+   15,
+   15
+  ],
+  "textures/gui/sprites/icon/link.png": [
+   15,
+   15
+  ],
+  "textures/gui/sprites/icon/link_highlighted.png": [
+   15,
+   15
+  ],
+  "textures/gui/sprites/icon/music_notes.png": [
+   16,
+   128
+  ],
+  "textures/gui/sprites/icon/new_realm.png": [
+   40,
+   20
+  ],
+  "textures/gui/sprites/icon/news.png": [
+   14,
+   14
+  ],
+  "textures/gui/sprites/icon/ping_1.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/icon/ping_2.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/icon/ping_3.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/icon/ping_4.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/icon/ping_5.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/icon/ping_unknown.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/icon/search.png": [
+   12,
+   12
+  ],
+  "textures/gui/sprites/icon/trial_available.png": [
+   8,
+   48
+  ],
+  "textures/gui/sprites/icon/unseen_notification.png": [
+   10,
+   10
+  ],
+  "textures/gui/sprites/icon/video_link.png": [
+   15,
+   15
+  ],
+  "textures/gui/sprites/icon/video_link_highlighted.png": [
+   15,
+   15
+  ],
+  "textures/gui/sprites/notification/1.png": [
+   8,
+   8
+  ],
+  "textures/gui/sprites/notification/2.png": [
+   8,
+   8
+  ],
+  "textures/gui/sprites/notification/3.png": [
+   8,
+   8
+  ],
+  "textures/gui/sprites/notification/4.png": [
+   8,
+   8
+  ],
+  "textures/gui/sprites/notification/5.png": [
+   8,
+   8
+  ],
+  "textures/gui/sprites/notification/more.png": [
+   8,
+   8
+  ],
+  "textures/gui/sprites/pause_menu/bug.png": [
+   13,
+   13
+  ],
+  "textures/gui/sprites/pause_menu/player_reporting.png": [
+   15,
+   14
+  ],
+  "textures/gui/sprites/pause_menu/social_interactions.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/pending_invite/accept.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/pending_invite/accept_highlighted.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/pending_invite/reject.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/pending_invite/reject_highlighted.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/player_list/make_operator.png": [
+   8,
+   7
+  ],
+  "textures/gui/sprites/player_list/remove_operator.png": [
+   8,
+   7
+  ],
+  "textures/gui/sprites/player_list/remove_player.png": [
+   8,
+   7
+  ],
+  "textures/gui/sprites/popup/background.png": [
+   236,
+   34
+  ],
+  "textures/gui/sprites/realm_status/closed.png": [
+   10,
+   28
+  ],
+  "textures/gui/sprites/realm_status/expired.png": [
+   10,
+   28
+  ],
+  "textures/gui/sprites/realm_status/expires_soon.png": [
+   10,
+   56
+  ],
+  "textures/gui/sprites/realm_status/open.png": [
+   10,
+   28
+  ],
+  "textures/gui/sprites/recipe_book/button.png": [
+   20,
+   18
+  ],
+  "textures/gui/sprites/recipe_book/button_highlighted.png": [
+   20,
+   18
+  ],
+  "textures/gui/sprites/recipe_book/crafting_overlay.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/recipe_book/crafting_overlay_disabled.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/recipe_book/crafting_overlay_disabled_highlighted.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/recipe_book/crafting_overlay_highlighted.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/recipe_book/filter_disabled.png": [
+   26,
+   16
+  ],
+  "textures/gui/sprites/recipe_book/filter_disabled_highlighted.png": [
+   26,
+   16
+  ],
+  "textures/gui/sprites/recipe_book/filter_enabled.png": [
+   26,
+   16
+  ],
+  "textures/gui/sprites/recipe_book/filter_enabled_highlighted.png": [
+   26,
+   16
+  ],
+  "textures/gui/sprites/recipe_book/furnace_filter_disabled.png": [
+   26,
+   16
+  ],
+  "textures/gui/sprites/recipe_book/furnace_filter_disabled_highlighted.png": [
+   26,
+   16
+  ],
+  "textures/gui/sprites/recipe_book/furnace_filter_enabled.png": [
+   26,
+   16
+  ],
+  "textures/gui/sprites/recipe_book/furnace_filter_enabled_highlighted.png": [
+   26,
+   16
+  ],
+  "textures/gui/sprites/recipe_book/furnace_overlay.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/recipe_book/furnace_overlay_disabled.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/recipe_book/furnace_overlay_disabled_highlighted.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/recipe_book/furnace_overlay_highlighted.png": [
+   24,
+   24
+  ],
+  "textures/gui/sprites/recipe_book/overlay_recipe.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/recipe_book/page_backward.png": [
+   12,
+   17
+  ],
+  "textures/gui/sprites/recipe_book/page_backward_highlighted.png": [
+   12,
+   17
+  ],
+  "textures/gui/sprites/recipe_book/page_forward.png": [
+   12,
+   17
+  ],
+  "textures/gui/sprites/recipe_book/page_forward_highlighted.png": [
+   12,
+   17
+  ],
+  "textures/gui/sprites/recipe_book/slot_craftable.png": [
+   25,
+   25
+  ],
+  "textures/gui/sprites/recipe_book/slot_many_craftable.png": [
+   25,
+   25
+  ],
+  "textures/gui/sprites/recipe_book/slot_many_uncraftable.png": [
+   25,
+   25
+  ],
+  "textures/gui/sprites/recipe_book/slot_uncraftable.png": [
+   25,
+   25
+  ],
+  "textures/gui/sprites/recipe_book/tab.png": [
+   35,
+   27
+  ],
+  "textures/gui/sprites/recipe_book/tab_selected.png": [
+   35,
+   27
+  ],
+  "textures/gui/sprites/server_list/incompatible.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/join.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/server_list/join_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/server_list/move_down.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/server_list/move_down_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/server_list/move_up.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/server_list/move_up_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/server_list/ping_1.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/ping_2.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/ping_3.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/ping_4.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/ping_5.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/pinging_1.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/pinging_2.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/pinging_3.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/pinging_4.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/pinging_5.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/server_list/unreachable.png": [
+   10,
+   8
+  ],
+  "textures/gui/sprites/social_interactions/background.png": [
+   236,
+   34
+  ],
+  "textures/gui/sprites/social_interactions/mute_button.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/social_interactions/mute_button_highlighted.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/social_interactions/report_button.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/social_interactions/report_button_disabled.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/social_interactions/report_button_highlighted.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/social_interactions/unmute_button.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/social_interactions/unmute_button_highlighted.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/spectator/close.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/spectator/scroll_left.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/spectator/scroll_right.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/spectator/teleport_to_player.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/spectator/teleport_to_team.png": [
+   16,
+   16
+  ],
+  "textures/gui/sprites/statistics/block_mined.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/statistics/header.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/statistics/item_broken.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/statistics/item_crafted.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/statistics/item_dropped.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/statistics/item_picked_up.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/statistics/item_used.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/statistics/sort_down.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/statistics/sort_up.png": [
+   18,
+   18
+  ],
+  "textures/gui/sprites/toast/advancement.png": [
+   160,
+   32
+  ],
+  "textures/gui/sprites/toast/mouse.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/toast/movement_keys.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/toast/now_playing.png": [
+   160,
+   32
+  ],
+  "textures/gui/sprites/toast/recipe.png": [
+   160,
+   32
+  ],
+  "textures/gui/sprites/toast/recipe_book.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/toast/right_click.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/toast/social_interactions.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/toast/system.png": [
+   160,
+   64
+  ],
+  "textures/gui/sprites/toast/tree.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/toast/tutorial.png": [
+   160,
+   32
+  ],
+  "textures/gui/sprites/toast/wooden_planks.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/tooltip/background.png": [
+   100,
+   100
+  ],
+  "textures/gui/sprites/tooltip/frame.png": [
+   100,
+   100
+  ],
+  "textures/gui/sprites/transferable_list/move_down.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/transferable_list/move_down_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/transferable_list/move_up.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/transferable_list/move_up_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/transferable_list/select.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/transferable_list/select_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/transferable_list/unselect.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/transferable_list/unselect_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/widget/button.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/button_disabled.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/button_highlighted.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/checkbox.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/widget/checkbox_highlighted.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/widget/checkbox_selected.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/widget/checkbox_selected_highlighted.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/widget/cross_button.png": [
+   14,
+   14
+  ],
+  "textures/gui/sprites/widget/cross_button_highlighted.png": [
+   14,
+   14
+  ],
+  "textures/gui/sprites/widget/locked_button.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/widget/locked_button_disabled.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/widget/locked_button_highlighted.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/widget/page_backward.png": [
+   23,
+   13
+  ],
+  "textures/gui/sprites/widget/page_backward_highlighted.png": [
+   23,
+   13
+  ],
+  "textures/gui/sprites/widget/page_forward.png": [
+   23,
+   13
+  ],
+  "textures/gui/sprites/widget/page_forward_highlighted.png": [
+   23,
+   13
+  ],
+  "textures/gui/sprites/widget/preedit.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/realms_button.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/realms_button_disabled.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/realms_button_highlighted.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/scroller.png": [
+   6,
+   32
+  ],
+  "textures/gui/sprites/widget/scroller_background.png": [
+   6,
+   32
+  ],
+  "textures/gui/sprites/widget/slider.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/slider_handle.png": [
+   8,
+   20
+  ],
+  "textures/gui/sprites/widget/slider_handle_highlighted.png": [
+   8,
+   20
+  ],
+  "textures/gui/sprites/widget/slider_highlighted.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/slot_frame.png": [
+   80,
+   80
+  ],
+  "textures/gui/sprites/widget/tab.png": [
+   130,
+   24
+  ],
+  "textures/gui/sprites/widget/tab_highlighted.png": [
+   130,
+   24
+  ],
+  "textures/gui/sprites/widget/tab_selected.png": [
+   130,
+   24
+  ],
+  "textures/gui/sprites/widget/tab_selected_highlighted.png": [
+   130,
+   24
+  ],
+  "textures/gui/sprites/widget/text_field.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/text_field_highlighted.png": [
+   200,
+   20
+  ],
+  "textures/gui/sprites/widget/unlocked_button.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/widget/unlocked_button_disabled.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/widget/unlocked_button_highlighted.png": [
+   20,
+   20
+  ],
+  "textures/gui/sprites/world_list/error.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/world_list/error_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/world_list/join.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/world_list/join_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/world_list/marked_join.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/world_list/marked_join_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/world_list/warning.png": [
+   32,
+   32
+  ],
+  "textures/gui/sprites/world_list/warning_highlighted.png": [
+   32,
+   32
+  ],
+  "textures/gui/tab_header_background.png": [
+   16,
+   16
+  ],
+  "textures/gui/title/background/panorama_0.png": [
+   1,
+   1
+  ],
+  "textures/gui/title/background/panorama_1.png": [
+   1,
+   1
+  ],
+  "textures/gui/title/background/panorama_2.png": [
+   1,
+   1
+  ],
+  "textures/gui/title/background/panorama_3.png": [
+   1,
+   1
+  ],
+  "textures/gui/title/background/panorama_4.png": [
+   1,
+   1
+  ],
+  "textures/gui/title/background/panorama_5.png": [
+   1,
+   1
+  ],
+  "textures/gui/title/background/panorama_overlay.png": [
+   1,
+   1
+  ],
+  "textures/gui/title/edition.png": [
+   512,
+   64
+  ],
+  "textures/gui/title/minceraft.png": [
+   1024,
+   256
+  ],
+  "textures/gui/title/minecraft.png": [
+   1024,
+   256
+  ],
+  "textures/gui/title/mojangstudios.png": [
+   512,
+   512
+  ],
+  "textures/gui/title/realms.png": [
+   512,
+   256
+  ]
+ }
+}
