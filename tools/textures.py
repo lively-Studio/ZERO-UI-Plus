@@ -16,9 +16,9 @@ from fluent import (ACCENT, ACCENT_DARK, ACCENT_HOVER, ACCENT_LIGHT, ACCENT_PALE
                     WHITE, Surface, acrylic_panel, apply_mask, blank,
                     bottom_line_mask, draw_heart, fluent_button, fluent_slot,
                     glyph_check, glyph_chevron, glyph_plus, glyph_search,
-                    left_line_mask, mica_panel, noise, over, right_line_mask,
-                    rounded_mask, rounded_ring_mask, shade_rows, top_line_mask,
-                    with_a)
+                    gradient, left_line_mask, mica_panel, noise, over,
+                    right_line_mask, rounded_mask, rounded_ring_mask, scale_px,
+                    shade_rows, top_line_mask, with_a)
 
 P = "textures/gui/sprites/"
 
@@ -27,7 +27,7 @@ P = "textures/gui/sprites/"
 # generic helpers
 # --------------------------------------------------------------------------
 def flat(w, h, color):
-    return np.zeros((h, w, 4), np.uint8) + np.array(color, np.uint8)
+    return blank(w, h, color)
 
 
 def tile(w, h, base, seed=0, radius=0, noise_amt=2.4, gain=(1.06, 0.95)):
@@ -261,10 +261,10 @@ def checkbox(selected, hover):
 
 
 def pad(a, size):
-    out = np.zeros((size, size, 4), np.uint8)
+    out = blank(size, size)
     o = out
-    y = (size - a.shape[0]) // 2
-    x = (size - a.shape[1]) // 2
+    y = (out.shape[0] - a.shape[0]) // 2
+    x = (out.shape[1] - a.shape[1]) // 2
     o[y:y + a.shape[0], x:x + a.shape[1]] = a
     return out
 
@@ -497,8 +497,7 @@ def xp_bar(w, h, tint):
     s.rect(0, 0, w, h, fill=tint, radius=1)
     a = s.array()
     # left-to-right gradient so the cropped fill keeps a tonal ramp
-    ramp = np.linspace(0.86, 1.16, w)[None, :, None]
-    body = a[..., :3].astype(np.float32) * ramp
+    body = a[..., :3].astype(np.float32) * gradient(w, 0.86, 1.16)
     a[..., :3] = np.clip(body, 0, 255).astype(np.uint8)
     apply_mask(a, rounded_ring_mask(w, h, 1, 1), with_a(_deep(tint), 200))
     apply_mask(a, top_line_mask(w, h, 1), (255, 255, 255, 60))
@@ -740,13 +739,12 @@ def boss_bar(w, h, tint, notches=0):
     else:
         s.rect(0, 0, w, h, fill=tint, radius=1)
         a = s.array()
-        ramp = np.linspace(0.92, 1.10, w)[None, :, None]
-        body = a[..., :3].astype(np.float32) * ramp
+        body = a[..., :3].astype(np.float32) * gradient(w, 0.92, 1.10)
         a[..., :3] = np.clip(body, 0, 255).astype(np.uint8)
         apply_mask(a, top_line_mask(w, h, 1), (255, 255, 255, 70))
     if notches:
         for i in range(1, notches):
-            a[:, int(i * w / notches)] = (0, 0, 0, 0)
+            a[:, scale_px(i * w / notches)] = (0, 0, 0, 0)
     return a
 
 

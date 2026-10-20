@@ -9,11 +9,12 @@ import numpy as np
 
 from fluent import (ACCENT, ACCENT_DARK, ACCENT_LIGHT, ACRYLIC, ACRYLIC_EDGE,
                     ACRYLIC_SHADE, C, HAIRLINE, INK, INSUCCESS, MICA_BRIGHT,
-                    PAPER, PAPER_EDGE, SUCCESS, SURFACE_DARK, SURFACE_DARKER,
-                    WARNING, WHITE, Surface, apply_mask, blank,
+                    PAPER, PAPER_EDGE, SCALE, SUCCESS, SURFACE_DARK,
+                    SURFACE_DARKER, WARNING, WHITE, Surface, apply_mask, blank,
                     bottom_line_mask, glyph_check, glyph_chevron, glyph_plus,
-                    left_line_mask, noise, over, right_line_mask, rounded_mask,
-                    rounded_ring_mask, shade_rows, top_line_mask, with_a)
+                    gradient, left_line_mask, noise, over, pixels,
+                    right_line_mask, rounded_mask, rounded_ring_mask,
+                    shade_rows, top_line_mask, with_a)
 
 P = "textures/gui/sprites/"
 INK_LIGHT = (255, 255, 255, 238)
@@ -21,7 +22,7 @@ INK_DIM = (255, 255, 255, 150)
 
 
 def flat(w, h, color):
-    return np.zeros((h, w, 4), np.uint8) + np.array(color, np.uint8)
+    return blank(w, h, color)
 
 
 
@@ -281,8 +282,8 @@ def backdrop(size, base, alpha):
     s = Surface(size, size, ss=2)
     s.rect(0, 0, size, size, fill=with_a(base, alpha))
     a = s.array()
-    ramp_x = np.linspace(0.94, 1.10, size)[None, :, None]
-    ramp_y = np.linspace(0.94, 1.10, size)[:, None, None]
+    ramp_x = gradient(size, 0.94, 1.10)
+    ramp_y = np.linspace(0.94, 1.10, a.shape[0])[:, None, None]
     body = a[..., :3].astype(np.float32) * ramp_x * ramp_y
     a[..., :3] = np.clip(body, 0, 255).astype(np.uint8)
     noise(a, 0, 0, size, size, 1.8, seed=size)
@@ -292,12 +293,13 @@ def backdrop(size, base, alpha):
 def separator(w, h):
     """Gradient hairline: bright in the middle, fading to nothing at the ends."""
     a = blank(w, h)
-    ramp = 255 * (1.0 - np.abs(np.linspace(-1, 1, w)) ** 1.4)
+    ramp = 255 * (1.0 - np.abs(np.linspace(-1, 1, a.shape[1])) ** 1.4)
     row = ramp.astype(np.uint16)
-    a[0, :, :3] = 255
-    a[0, :, 3] = np.clip(row * 0.42, 0, 255)
-    a[1, :, :3] = 0
-    a[1, :, 3] = np.clip(row * 0.22, 0, 255)
+    one = SCALE
+    a[0:one, :, :3] = 255
+    a[0:one, :, 3] = np.clip(row * 0.42, 0, 255)
+    a[one:2 * one, :, :3] = 0
+    a[one:2 * one, :, 3] = np.clip(row * 0.22, 0, 255)
     return a
 
 

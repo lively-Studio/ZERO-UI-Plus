@@ -17,10 +17,85 @@ Design rules baked in here
   backdrop. Overlays that sit on top of the world (HUD, tooltips) use Acrylic
   (dark, translucent) instead.
 """
+import contextlib
 import math
 
 import numpy as np
 from PIL import Image, ImageDraw
+
+# --------------------------------------------------------------------------
+# Resolution
+# --------------------------------------------------------------------------
+# GUI sprites are drawn on their own sprite atlas and the client maps whatever
+# resolution the PNG has onto the logical GUI size, so they can ship at 4x and
+# render sharp on high-DPI / high GUI-scale displays. Everything below draws in
+# *logical* pixels; Surface multiplies by this factor when it resolves.
+#
+# Two things must stay at 1x and are handled outside this switch:
+#   * container panels - 26.3 blits them as plain textures (u,v,w,h in texels),
+#     so a bigger PNG would only show its top-left quarter;
+#   * nine-slice sprites - the metadata border doubles as a screen-pixel size,
+#     so scaling the art makes the corners render at the wrong thickness.
+SCALE = 4
+
+
+@contextlib.contextmanager
+def logical():
+    """Force 1x output for code that must stay on vanilla's pixel grid."""
+    global SCALE
+    prev = SCALE
+    SCALE = 1
+    try:
+        yield
+    finally:
+        SCALE = prev
+
+
+def pixels(v):
+    """Logical pixels -> texture pixels at the current scale."""
+    return int(round(v * SCALE))
+
+
+scale_px = pixels
+
+
+def upscale(arr, factor=None, smooth=True):
+    """Resize an RGBA array by `factor`, premultiplied so edges don't fringe."""
+    factor = factor or SCALE
+    if factor == 1 or arr.size == 0:
+        return arr
+    h, w = arr.shape[:2]
+    a = arr.astype(np.float32)
+    al = a[..., 3:4] / 255.0
+    a[..., :3] *= al
+    im = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), "RGBA")
+    im = im.resize((w * factor, h * factor),
+                   Image.LANCZOS if smooth else Image.NEAREST)
+    a = np.asarray(im, np.float32)
+    al = a[..., 3:4] / 255.0
+    a[..., :3] /= np.maximum(al, 1e-6)
+    return np.clip(a, 0, 255).astype(np.uint8)
+
+
+def gradient(n, lo, hi):
+    """Horizontal tonal ramp across `n` logical pixels, at the current scale."""
+    return np.linspace(lo, hi, n * SCALE)[None, :, None]
+
+
+def downscale(arr, factor=None):
+    """Box-filter an RGBA array down by `factor`, premultiplied."""
+    factor = factor or SCALE
+    if factor == 1 or arr.size == 0:
+        return arr
+    h, w = arr.shape[:2]
+    a = arr.astype(np.float32)
+    al = a[..., 3:4] / 255.0
+    a[..., :3] *= al
+    a = a.reshape(h // factor, factor, w // factor, factor, 4).mean(axis=(1, 3))
+    al = a[..., 3:4] / 255.0
+    a[..., :3] /= np.maximum(al, 1e-6)
+    return np.clip(a, 0, 255).astype(np.uint8)
+
 
 
 def C(hexstr, a=255):
@@ -104,54 +179,59 @@ RADIUS_SLOT = 3
 # Surface
 # --------------------------------------------------------------------------
 class Surface:
-    """Supersampled RGBA canvas that resolves to exact pixel dimensions."""
+    """Supersampled RGBA canvas that resolves to SCALE x pixel dimensions."""
 
     def __init__(self, w, h, ss=4):
         self.w = int(w)
         self.h = int(h)
-        self.ss = ss
-        self.px = Image.new("RGBA", (self.w * ss, self.h * ss), (0, 0, 0, 0))
+        # Drawing happens in logical units; the canvas is SCALE times denser and
+        # then supersampled on top of that for anti-aliasing. Cap the extra
+        # supersampling as the scale grows so big panels stay affordable.
+        self.ss = min(int(ss), max(1, 8 // max(1, SCALE)))
+        self.s = self.ss * SCALE
+        self.px = Image.new("RGBA", (self.w * self.s, self.h * self.s),
+                            (0, 0, 0, 0))
         self.d = ImageDraw.Draw(self.px)
 
     # -- primitives ------------------------------------------------------
     def _box(self, x, y, w, h):
-        s = self.ss
+        s = self.s
         return [x * s, y * s, (x + w) * s - 1, (y + h) * s - 1]
 
     def rect(self, x, y, w, h, fill=None, radius=0, outline=None, ow=1):
         box = self._box(x, y, w, h)
-        r = radius * self.ss
+        r = radius * self.s
         if radius > 0:
             self.d.rounded_rectangle(box, radius=r, fill=fill)
             if outline:
                 self.d.rounded_rectangle(box, radius=r, outline=outline,
-                                         width=max(1, int(round(ow * self.ss))))
+                                         width=max(1, int(round(ow * self.s))))
         else:
             self.d.rectangle(box, fill=fill)
             if outline:
                 self.d.rectangle(box, outline=outline,
-                                 width=max(1, int(round(ow * self.ss))))
+                                 width=max(1, int(round(ow * self.s))))
         return self
 
     def pixel(self, x, y, fill):
-        s = self.ss
+        s = self.s
         self.d.rectangle([x * s, y * s, x * s + s - 1, y * s + s - 1], fill=fill)
         return self
 
     def line(self, pts, fill, width=1):
-        s = self.ss
+        s = self.s
         scaled = [(p[0] * s + s / 2.0, p[1] * s + s / 2.0) for p in pts]
         self.d.line(scaled, fill=fill, width=max(1, int(round(width * s))),
                     joint="curve")
         return self
 
     def poly(self, pts, fill):
-        s = self.ss
+        s = self.s
         self.d.polygon([(p[0] * s, p[1] * s) for p in pts], fill=fill)
         return self
 
     def ellipse(self, x, y, w, h, fill=None, outline=None, ow=1):
-        s = self.ss
+        s = self.s
         box = [x * s, y * s, (x + w) * s - 1, (y + h) * s - 1]
         self.d.ellipse(box, fill=fill, outline=outline,
                        width=max(1, int(round(ow * s))))
@@ -163,13 +243,14 @@ class Surface:
 
     # -- compositing ----------------------------------------------------
     def blit(self, arr, x=0, y=0):
-        """Composite a 1x RGBA numpy array at integer pixel coordinates."""
+        """Composite a 1x RGBA numpy array at integer logical coordinates."""
         if arr is None or arr.size == 0:
             return self
         img = Image.fromarray(np.ascontiguousarray(arr, dtype=np.uint8), "RGBA")
-        if self.ss != 1:
-            img = img.resize((img.width * self.ss, img.height * self.ss), Image.NEAREST)
-        self.px.alpha_composite(img, (int(x * self.ss), int(y * self.ss)))
+        if self.s != 1:
+            img = img.resize((img.width * self.s, img.height * self.s),
+                             Image.NEAREST)
+        self.px.alpha_composite(img, (int(x * self.s), int(y * self.s)))
         return self
 
     # -- resolve --------------------------------------------------------
@@ -179,7 +260,8 @@ class Surface:
         if s > 1:
             al = a[..., 3:4] / 255.0
             a[..., :3] *= al
-            a = a.reshape(self.h, s, self.w, s, 4).mean(axis=(1, 3))
+            a = a.reshape(self.h * SCALE, s, self.w * SCALE, s, 4).mean(
+                axis=(1, 3))
             al = a[..., 3:4] / 255.0
             a[..., :3] /= np.maximum(al, 1e-6)
             np.clip(a, 0, 255, out=a)
@@ -194,6 +276,7 @@ class Surface:
 # --------------------------------------------------------------------------
 def shade_rows(arr, x, y, w, h, gain, direction="down"):
     """Multiply RGB inside a rect by a linear gain ramp (subtle tonal shift)."""
+    x, y, w, h = x * SCALE, y * SCALE, w * SCALE, h * SCALE
     if direction == "down":
         ramp = np.linspace(gain[0], gain[1], h)
     else:
@@ -207,6 +290,7 @@ def shade_rows(arr, x, y, w, h, gain, direction="down"):
 
 def noise(arr, x, y, w, h, amount=2.0, seed=0):
     """Very light per-pixel grain; the Acrylic/Mica 'material' tell."""
+    x, y, w, h = x * SCALE, y * SCALE, w * SCALE, h * SCALE
     rng = np.random.default_rng(seed)
     region = arr[y:y + h, x:x + w, :3].astype(np.float32)
     g = rng.normal(0.0, amount, size=(h, w, 1))
@@ -217,7 +301,8 @@ def noise(arr, x, y, w, h, amount=2.0, seed=0):
 
 
 def over(dst, src, x=0, y=0):
-    """Alpha-composite src (1x RGBA) onto dst in place."""
+    """Alpha-composite src (RGBA at the current scale) onto dst in place."""
+    x, y = int(round(x * SCALE)), int(round(y * SCALE))
     h, w = src.shape[:2]
     region = dst[y:y + h, x:x + w].astype(np.float32)
     sa = src[..., 3:4].astype(np.float32) / 255.0
@@ -233,7 +318,8 @@ def over(dst, src, x=0, y=0):
 
 
 def blank(w, h, fill=(0, 0, 0, 0)):
-    return np.zeros((h, w, 4), dtype=np.uint8) + np.array(fill, dtype=np.uint8)
+    return np.zeros((h * SCALE, w * SCALE, 4), dtype=np.uint8) + \
+        np.array(fill, dtype=np.uint8)
 
 
 def rounded_mask(w, h, radius, ss=4):
@@ -351,34 +437,35 @@ def fluent_slot(w=18, h=18, radius=RADIUS_SLOT, surface="light"):
 def rounded_ring_mask(w, h, radius, inset=0):
     mask = rounded_mask(w, h, radius)
     inner = np.zeros_like(mask)
-    if w - 2 * inset > 0 and h - 2 * inset > 0:
-        inner[inset:h - inset, inset:w - inset] = rounded_mask(
+    i = inset * SCALE
+    if w * SCALE - 2 * i > 0 and h * SCALE - 2 * i > 0:
+        inner[i:h * SCALE - i, i:w * SCALE - i] = rounded_mask(
             w - 2 * inset, h - 2 * inset, max(0, radius - inset))
     out = np.clip(mask.astype(np.int16) - inner.astype(np.int16), 0, 255)
     return out.astype(np.uint8)
 
 
 def top_line_mask(w, h, radius, thick=1):
-    m = np.zeros((h, w), dtype=np.uint8)
-    m[0:thick, :] = 255
+    m = np.zeros((h * SCALE, w * SCALE), dtype=np.uint8)
+    m[0:thick * SCALE, :] = 255
     return np.minimum(m, rounded_mask(w, h, radius))
 
 
 def bottom_line_mask(w, h, radius, thick=1):
-    m = np.zeros((h, w), dtype=np.uint8)
-    m[h - thick:h, :] = 255
+    m = np.zeros((h * SCALE, w * SCALE), dtype=np.uint8)
+    m[h * SCALE - thick * SCALE:h * SCALE, :] = 255
     return np.minimum(m, rounded_mask(w, h, radius))
 
 
 def left_line_mask(w, h, radius, thick=1):
-    m = np.zeros((h, w), dtype=np.uint8)
-    m[:, 0:thick] = 255
+    m = np.zeros((h * SCALE, w * SCALE), dtype=np.uint8)
+    m[:, 0:thick * SCALE] = 255
     return np.minimum(m, rounded_mask(w, h, radius))
 
 
 def right_line_mask(w, h, radius, thick=1):
-    m = np.zeros((h, w), dtype=np.uint8)
-    m[:, w - thick:w] = 255
+    m = np.zeros((h * SCALE, w * SCALE), dtype=np.uint8)
+    m[:, w * SCALE - thick * SCALE:w * SCALE] = 255
     return np.minimum(m, rounded_mask(w, h, radius))
 
 

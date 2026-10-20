@@ -38,6 +38,9 @@ import textures_ui         # noqa: E402
 import containers          # noqa: E402
 import extras              # noqa: E402
 import restyle             # noqa: E402
+import fluent              # noqa: E402
+
+hd_scale = fluent.SCALE
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS = "assets/minecraft/"
@@ -80,14 +83,20 @@ def main():
 
     print("building textures ...")
     built = {}
-    for label, part in (("widgets", textures.widgets()),
-                        ("hud", textures.hud()),
-                        ("boss bars", textures.boss_bars()),
-                        ("creative tabs", textures.creative_tabs()),
-                        ("container sprites", textures.container_sprites()),
-                        ("container panels", containers.build_all(read_vanilla)),
-                        ("remaining sprites", extras.build_all(read_vanilla)),
-                        ("ui chrome", textures_ui.build_all())):
+    # Vanilla-derived builders index raw 1x arrays, so they run on the vanilla
+    # pixel grid; their output is resampled later for sprites that can be HD.
+    with fluent.logical():
+        legacy = (("container panels", containers.build_all(read_vanilla)),
+                  ("remaining sprites", extras.build_all(read_vanilla)))
+    parts = (("widgets", textures.widgets()),
+             ("hud", textures.hud()),
+             ("boss bars", textures.boss_bars()),
+             ("creative tabs", textures.creative_tabs()),
+             ("container sprites", textures.container_sprites()),
+             legacy[0],
+             legacy[1],
+             ("ui chrome", textures_ui.build_all()))
+    for label, part in parts:
         clash = set(part) & set(built)
         if clash:
             raise SystemExit("duplicate texture keys in %s: %s" % (label,
@@ -95,22 +104,34 @@ def main():
         print("  %-20s %4d sprites" % (label, len(part)))
         built.update(part)
 
-    # ---- dimension validation ------------------------------------------
-    errors = []
-    additions = []
-    for path, arr in built.items():
-        if path not in manifest:
-            additions.append(path)
-            continue
-        want = manifest[path]
-        got = (arr.shape[1], arr.shape[0])
-        if want != got:
-            errors.append("%s: generated %s but vanilla is %s" % (path, got, want))
-    if errors:
-        print("\nDIMENSION MISMATCHES (%d):" % len(errors))
-        for e in errors[:60]:
-            print("   " + e)
-        raise SystemExit("aborting: fix dimensions before shipping")
+    # Paths whose pixels come from vanilla's 1x art (re-tint, panel chrome) are
+    # resampled at most once and must stay on the vanilla pixel grid.
+    vanilla_derived = set(legacy[0][1]) | set(legacy[1][1])
+
+    def hd(path):
+        """Can this texture ship above 1x?
+
+        Container panels are blitted as plain textures (their u/v/w/h are texel
+        counts), a nine-slice sprite's metadata border doubles as a screen pixel
+        size, and vanilla-derived glyphs are 1px-wide silhouettes that only blur
+        when resampled. Everything drawn from scratch by the builders is
+        resolution-independent and ships at SCALE.
+        """
+        if not path.startswith("textures/gui/sprites/"):
+            return False
+        if path in vanilla_derived:
+            return False
+        meta = ASSETS + path + ".mcmeta"
+        if meta in jar.namelist():
+            gui = json.loads(jar.read(meta)).get("gui", {})
+            scaling = gui.get("scaling", {})
+            if scaling.get("type") == "nine_slice":
+                return False
+            if "animation" in json.loads(jar.read(meta)):
+                # Animation frames are sliced in texels, so a bigger PNG would
+                # make the client read the wrong rectangles.
+                return False
+        return True
 
     # ---- art-class re-tint ---------------------------------------------
     # Glyphs whose shape carries the meaning keep vanilla's silhouette and get
@@ -124,6 +145,7 @@ def main():
         out = restyle.restyle(path, vanilla)
         if out is None:
             continue
+        vanilla_derived.add(path)
         if np.array_equal(out, vanilla):
             kept += 1
         else:
@@ -131,6 +153,45 @@ def main():
         built[path] = out
     print("re-tinted %d vanilla glyphs (%d left verbatim)"
           % (restyled, kept))
+
+    # ---- resolution normalisation --------------------------------------
+    # Builders draw in logical pixels and resolve at hd_scale; the
+    # vanilla-derived ones (re-tinted glyphs, container panels) come out at 1x.
+    # Bring each texture onto the resolution its sprite type can actually use.
+    resampled = 0
+    for path, arr in list(built.items()):
+        if path not in manifest:
+            continue
+        factor = hd_scale if hd(path) else 1
+        got = arr.shape[0] / manifest[path][1]
+        if abs(got - factor) < 0.01:
+            continue
+        if got > factor:
+            built[path] = fluent.downscale(arr, int(round(got)))
+        else:
+            built[path] = fluent.upscale(arr, int(round(factor / got)))
+        resampled += 1
+    hd_total = sum(1 for p in built if p in manifest and hd(p))
+    print("hd sprites %d at %dx (%d resampled)"
+          % (hd_total, hd_scale, resampled))
+
+    # ---- dimension validation ------------------------------------------
+    errors = []
+    additions = []
+    for path, arr in built.items():
+        if path not in manifest:
+            additions.append(path)
+            continue
+        vw, vh = manifest[path]
+        want = (vw * hd_scale, vh * hd_scale) if hd(path) else (vw, vh)
+        got = (arr.shape[1], arr.shape[0])
+        if want != got:
+            errors.append("%s: generated %s but expected %s" % (path, got, want))
+    if errors:
+        print("\nDIMENSION MISMATCHES (%d):" % len(errors))
+        for e in errors[:60]:
+            print("   " + e)
+        raise SystemExit("aborting: fix dimensions before shipping")
 
     # ---- silhouette audit ----------------------------------------------
     # A redrawn sprite whose alpha mask disagrees with vanilla's is a bug
@@ -144,6 +205,8 @@ def main():
         if path not in manifest:
             continue
         vanilla = read_vanilla(path)
+        if arr.shape != vanilla.shape:
+            arr = fluent.downscale(arr, hd_scale)
         if vanilla.shape != arr.shape:
             continue
         ma, mb = vanilla[:, :, 3] > 48, arr[:, :, 3] > 48
@@ -182,8 +245,9 @@ def main():
                 "max_format": PACK_MAX_FORMAT,
             }
         }, f, indent=2)
-    Image.fromarray(np.ascontiguousarray(textures_ui.pack_icon(512),
-                                         dtype=np.uint8), "RGBA").save(
+    with fluent.logical():
+        icon = textures_ui.pack_icon(512)
+    Image.fromarray(np.ascontiguousarray(icon, dtype=np.uint8), "RGBA").save(
         os.path.join(pack_root, "pack.png"))
 
     # ---- coverage report ----------------------------------------------
