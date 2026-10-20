@@ -8,12 +8,12 @@ screen and container screens get light surfaces (see textures.py / containers.py
 import numpy as np
 
 from fluent import (ACCENT, ACCENT_DARK, ACCENT_LIGHT, ACRYLIC, ACRYLIC_EDGE,
-                    ACRYLIC_SHADE, C, HAIRLINE, INK, INSUCCESS, PAPER, PAPER_EDGE,
-                    SUCCESS, SURFACE_DARK, SURFACE_DARKER, WARNING, WHITE,
-                    Surface, apply_mask, blank, bottom_line_mask, glyph_check,
-                    glyph_chevron, glyph_plus, left_line_mask, noise, over,
-                    right_line_mask, rounded_mask, rounded_ring_mask,
-                    shade_rows, top_line_mask, with_a)
+                    ACRYLIC_SHADE, C, HAIRLINE, INK, INSUCCESS, MICA_BRIGHT,
+                    PAPER, PAPER_EDGE, SUCCESS, SURFACE_DARK, SURFACE_DARKER,
+                    WARNING, WHITE, Surface, apply_mask, blank,
+                    bottom_line_mask, glyph_check, glyph_chevron, glyph_plus,
+                    left_line_mask, noise, over, right_line_mask, rounded_mask,
+                    rounded_ring_mask, shade_rows, top_line_mask, with_a)
 
 P = "textures/gui/sprites/"
 INK_LIGHT = (255, 255, 255, 238)
@@ -918,38 +918,108 @@ def rb_tab(w, h, selected):
     return a
 
 
-def pack_icon(size=128):
-    """The 128x128 icon Minecraft lists in the resource-pack browser: a Fluent
-    accent tile carrying a small Mica 'window' glyph."""
-    r = int(round(size * 0.225))
+def pack_icon(size=512):
+    """The icon Minecraft lists in the resource-pack browser.
+
+    Drawn natively at 512x512 rather than upscaled from a small tile: the pack
+    list renders the icon at arbitrary sizes, so the extra resolution buys real
+    detail - a three-stop accent gradient, a radial sheen, a soft cast shadow
+    under the window glyph and hairline rim lighting - instead of interpolated
+    mush.
+    """
+    px = float(size)
+    r = int(round(px * 0.2227))
+
     s = Surface(size, size, ss=4)
     s.rect(0, 0, size, size, fill=ACCENT, radius=r)
     a = s.array()
 
-    # diagonal accent -> deep gradient body
+    # three-stop diagonal gradient: light at the top-left, deep at the bottom
     yy, xx = np.mgrid[0:size, 0:size].astype(np.float32)
-    t = np.clip((xx + yy) / (2.0 * (size - 1)), 0, 1)[..., None]
-    top = np.array(ACCENT_LIGHT[:3], np.float32)
-    bot = np.array(ACCENT_DARK[:3], np.float32)
-    a[..., :3] = np.clip(top * (1 - t) + bot * t, 0, 255).astype(np.uint8)
-    apply_mask(a, rounded_ring_mask(size, size, r, 1), (255, 255, 255, 96))
-    apply_mask(a, top_line_mask(size, size, r), (255, 255, 255, 70))
+    t = np.clip((xx + yy) / (2.0 * (size - 1)), 0, 1)
+    stops = (0.0, 0.46, 1.0)
+    ramp = (np.array(ACCENT_LIGHT[:3], np.float32),
+            np.array(ACCENT[:3], np.float32),
+            np.array(ACCENT_DARK[:3], np.float32))
+    body = np.empty((size, size, 3), np.float32)
+    lo = t <= stops[1]
+    f = (t - stops[0]) / (stops[1] - stops[0])
+    body[lo] = (ramp[0] * (1 - f[lo, None]) + ramp[1] * f[lo, None])
+    hi = ~lo
+    f = (t - stops[1]) / (stops[2] - stops[1])
+    body[hi] = (ramp[1] * (1 - f[hi, None]) + ramp[2] * f[hi, None])
 
-    # Mica window glyph
-    gw, gh = int(size * 0.58), int(size * 0.46)
-    gx, gy = (size - gw) // 2, (size - gh) // 2 + int(size * 0.02)
-    gr = max(3, int(size * 0.045))
+    # radial sheen, as if a soft light sits above the top-left corner
+    sx, sy = px * 0.30, px * 0.16
+    rr = (px * 0.46) ** 2
+    glow = np.exp(-(((xx - sx) ** 2 + (yy - sy) ** 2) / (2.0 * rr)))
+    body += glow[..., None] * np.array((30, 30, 34), np.float32) * 0.5
+    # settle the bottom edge into shadow so the tile has weight
+    body *= (1.0 - 0.10 * np.clip((t - 0.55) / 0.45, 0, 1))[..., None]
+    a[..., :3] = np.clip(body, 0, 255).astype(np.uint8)
+
+    # rim lighting: a wide inner glow line plus a crisp lit top edge
+    apply_mask(a, rounded_ring_mask(size, size, r, max(1, int(px * 0.005))),
+               (255, 255, 255, 64))
+    apply_mask(a, rounded_ring_mask(size, size, r, max(1, int(px * 0.011))),
+               (255, 255, 255, 30))
+    apply_mask(a, top_line_mask(size, size, r, max(1, int(px * 0.006))),
+               (255, 255, 255, 104))
+    apply_mask(a, bottom_line_mask(size, size, r, max(1, int(px * 0.008))),
+               (0, 0, 0, 58))
+
+    # ---- Mica window glyph ------------------------------------------------
+    gw = int(round(px * 0.582))
+    gh = int(round(px * 0.462))
+    gr = max(4, int(round(px * 0.0455)))
+    gx = (size - gw) // 2
+    gy = (size - gh) // 2 + int(round(px * 0.014))
+    bar = int(round(gh * 0.236))
+
+    # cast shadow: overlapping translucent rects, each a little wider, so the
+    # falloff reads as a blur at 512 without a Gaussian pass
+    pad = int(round(px * 0.055))
+    sh = Surface(gw + 2 * pad, gh + 2 * pad, ss=4)
+    for i in range(7):
+        g = i * 0.9
+        sh.rect(pad - g, pad + px * 0.016 - g * 0.6, gw + 2 * g, gh + 2 * g,
+                fill=(6, 20, 34, 13), radius=gr + int(round(g)))
+    over(a, sh.array(), gx - pad, gy - pad)
+
     w = Surface(gw, gh, ss=4)
-    w.rect(0, 0, gw, gh, fill=C("#FBFBFB"), radius=gr)
-    wa = w.array()
-    # content rows, then the accent title bar, then clip to the rounded frame
+    w.rect(0, 0, gw, gh, fill=MICA_BRIGHT, radius=gr)
+    # title bar, clipped to the frame afterwards
+    sep = max(1, int(round(px * 0.004)))
+    w.rect(0, 0, gw, bar, fill=ACCENT_DARK)
+    w.rect(0, bar - sep, gw, sep, fill=with_a(ACCENT_LIGHT, 190))
+    # window controls, top right
+    dot = max(2, int(round(px * 0.0114)))
+    gap = int(round(px * 0.0255))
     for i in range(3):
-        over(wa, flat(max(3, int(gw * (0.60 - i * 0.11))),
-                      max(2, int(gh * 0.085)), with_a(ACCENT, 190)),
-             int(gw * 0.13), int(gh * 0.42) + i * max(3, int(gh * 0.13)))
-    over(wa, flat(gw, max(4, int(gh * 0.27)), ACCENT_DARK), 0, 0)
+        cx = gw - int(round(gw * 0.055)) - i * gap
+        cy = bar // 2
+        w.ellipse(cx - dot, cy - dot, dot * 2, dot * 2,
+                  fill=with_a(ACCENT_LIGHT, 210 if i else 255))
+    # content: an accent avatar tile and three rounded text bars
+    av = int(round(gh * 0.300))
+    ax = int(round(gw * 0.072))
+    ay = bar + int(round((gh - bar - av) * 0.42))
+    w.rect(ax, ay, av, av, fill=with_a(ACCENT, 235), radius=int(round(av * 0.28)))
+    w.ellipse(ax + av * 0.32, ay + av * 0.24, av * 0.36, av * 0.36,
+              fill=(255, 255, 255, 236))
+    w.rect(ax + av * 0.22, ay + av * 0.62, av * 0.56, av * 0.34,
+           fill=(255, 255, 255, 236), radius=int(round(av * 0.20)))
+    lx = ax + av + int(round(gw * 0.062))
+    lw = gw - lx - int(round(gw * 0.075))
+    lh = max(2, int(round(gh * 0.058)))
+    for i, frac in enumerate((1.00, 0.74, 0.46)):
+        ly = ay + int(round(i * (lh * 2.30)))
+        w.rect(lx, ly, max(lh, int(round(lw * frac))), lh,
+               fill=with_a(INK, 92 if i == 0 else 64), radius=lh // 2)
+
+    wa = w.array()
     wa[..., 3] = np.minimum(wa[..., 3], rounded_mask(gw, gh, gr))
-    apply_mask(wa, rounded_ring_mask(gw, gh, gr, 1), (0, 0, 0, 46))
+    apply_mask(wa, rounded_ring_mask(gw, gh, gr, 1), (24, 34, 46, 44))
     over(a, wa, gx, gy)
     return a
 

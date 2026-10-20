@@ -182,7 +182,7 @@ def main():
                 "max_format": PACK_MAX_FORMAT,
             }
         }, f, indent=2)
-    Image.fromarray(np.ascontiguousarray(textures_ui.pack_icon(128),
+    Image.fromarray(np.ascontiguousarray(textures_ui.pack_icon(512),
                                          dtype=np.uint8), "RGBA").save(
         os.path.join(pack_root, "pack.png"))
 
