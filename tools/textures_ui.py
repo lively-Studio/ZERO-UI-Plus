@@ -2,14 +2,14 @@
 """Texture builders - part 2: icons, menu chrome, overlays, toasts, social.
 
 Everything in here renders on top of a *dark* backdrop because Minecraft draws
-menu, list, tooltip, toast and advancement text in white. Only the written-book
-screen and container screens get light surfaces (see textures.py / containers.py).
+menu, list, tooltip, toast and advancement text in white. Only container screens
+get light surfaces (see containers.py).
 """
 import numpy as np
 
 from fluent import (ACCENT, ACCENT_DARK, ACCENT_LIGHT, ACRYLIC, ACRYLIC_EDGE,
                     ACRYLIC_SHADE, C, HAIRLINE, INK, INSUCCESS, MICA_BRIGHT,
-                    PAPER, PAPER_EDGE, SCALE, SUCCESS, SURFACE_DARK,
+                    SCALE, SUCCESS, SURFACE_DARK,
                     SURFACE_DARKER, WARNING, WHITE, Surface, apply_mask, blank,
                     bottom_line_mask, glyph_check, glyph_chevron, glyph_plus,
                     gradient, left_line_mask, noise, over, pixels,
@@ -780,7 +780,6 @@ def adv_tab(w, h, free_edge, selected):
 def recipe_book():
     out = {}
     out["textures/gui/recipe_book.png"] = recipe_book_panel(256, 256)
-    out["textures/gui/book.png"] = written_book_panel(256, 256)
     out[P + "recipe_book/button.png"] = small_cta(20, 18, False)
     out[P + "recipe_book/button_highlighted.png"] = small_cta(20, 18, True)
     for kind in ("", "furnace_"):
@@ -815,27 +814,6 @@ def recipe_book_panel(w, h):
     a = blank(w, h)
     panel = panel_tex(150, 169, radius=8, base=ACRYLIC, alpha=238, tone="dark")
     over(a, panel, bbox[0] - 1, bbox[1] - 1)
-    return a
-
-
-def written_book_panel(w, h):
-    """Panel for the written book screen (light paper: its text is dark)."""
-    bbox = (20, 1, 165, 180)
-    a = blank(w, h)
-    s = Surface(146, 180, ss=4)
-    s.rect(0, 0, 146, 180, fill=with_a(PAPER, 250), radius=6)
-    body = s.array()
-    shade_rows(body, 0, 0, 146, 180, (1.03, 0.96))
-    apply_mask(body, rounded_ring_mask(146, 180, 6, 1), PAPER_EDGE)
-    apply_mask(body, top_line_mask(146, 180, 6), HAIRLINE)
-    noise(body, 0, 0, 146, 180, 1.6, seed=33)
-    # centre spine: the book renders two text pages side by side
-    apply_mask(body, rounded_ring_mask(146, 180, 6, 1), (0, 0, 0, 26))
-    spine = flat(2, 158, with_a(PAPER_EDGE, 210))
-    over(body, spine, 72, 11)
-    gloss = flat(1, 158, (0, 0, 0, 40))
-    over(body, gloss, 70, 11)
-    over(a, body, bbox[0], bbox[1])
     return a
 
 

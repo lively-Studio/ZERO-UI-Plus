@@ -1,6 +1,6 @@
 {
  "pack": "ZERO-UI+",
- "generated": 512,
+ "generated": 511,
  "additions_not_in_vanilla": [],
  "sprites_total": 469,
  "sprites_covered": 469,
@@ -13,7 +13,6 @@
   "textures/gui/advancements/backgrounds/nether.png",
   "textures/gui/advancements/backgrounds/stone.png",
   "textures/gui/advancements/window.png",
-  "textures/gui/book.png",
   "textures/gui/container/anvil.png",
   "textures/gui/container/beacon.png",
   "textures/gui/container/blast_furnace.png",
