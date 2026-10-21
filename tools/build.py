@@ -45,10 +45,11 @@ hd_scale = fluent.SCALE
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS = "assets/minecraft/"
 
-# 26.3 resource pack format: the client accepts terms between min_format and
-# max_format inclusive, so one pack.mcmeta covers a range of versions.
-PACK_MIN_FORMAT = 63
-PACK_MAX_FORMAT = 110
+# 26.3 reads these as [major, minor] pairs. The client refuses anything below
+# its current series, so the floor is 69,0 rather than the 63 used by the
+# previous int-only schema.
+PACK_MIN_FORMAT = [69, 0]
+PACK_MAX_FORMAT = [97, 1]
 PACK_FORMAT = 97
 PACK_DESCRIPTION = "ZERO-UI+ · a modern Fluent-style interface overhaul by lively-Studio"
 PACK_NAME = "ZERO-UI+"

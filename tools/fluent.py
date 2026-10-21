@@ -111,19 +111,22 @@ def with_a(color, a):
 
 
 # --------------------------------------------------------------------------
-# Fluent 2 tokens
+# ZeroUI tokens
 # --------------------------------------------------------------------------
-ACCENT = C("#0F6CBD")
-ACCENT_HOVER = C("#115EA3")
-ACCENT_PRESSED = C("#0C3B5E")
-ACCENT_DARK = C("#0A4A73")
-ACCENT_LIGHT = C("#2899F5")
-ACCENT_PALE = C("#EFF6FC")
-ACCENT_WASH = C("#DCEBF9")
+# Palette lifted from the user's own ZeroUI pack: one calm lavender-grey family
+# plus a single green accent. Surfaces stay light and low-contrast; slots are a
+# flat fill with a hairline, never a hard black well.
+ACCENT = C("#4AA26F")
+ACCENT_HOVER = C("#57B37C")
+ACCENT_PRESSED = C("#357A52")
+ACCENT_DARK = C("#3A8459")
+ACCENT_LIGHT = C("#8CCFA9")
+ACCENT_PALE = C("#EAF5EE")
+ACCENT_WASH = C("#D9ECDF")
 
-MICA = C("#F3F3F3")
-MICA_BRIGHT = C("#FBFBFB")
-MICA_DEEP = C("#E4E4E4")
+MICA = C("#B4AFB9")
+MICA_BRIGHT = C("#C3BEC8")
+MICA_DEEP = C("#A09BA5")
 WHITE = C("#FFFFFF")
 PAPER = C("#FAF6EC")
 PAPER_EDGE = C("#D9CFB8")
@@ -342,95 +345,54 @@ def apply_mask(arr, mask, color):
 # --------------------------------------------------------------------------
 # Material recipes
 # --------------------------------------------------------------------------
-def mica_panel(arr, x, y, w, h, radius=RADIUS_PANEL, base=MICA, alpha=232,
-               shadow=True):
-    """Fluent Mica surface: translucent light fill, hairline stroke, reveal
-    highlight on the top edge and a soft shade along the bottom."""
+def mica_panel(arr, x, y, w, h, radius=0, base=MICA, alpha=232, shadow=False):
+    """ZeroUI surface: one flat tonal fill, square corners, no stroke.
+
+    The reference pack draws every panel as a single colour with a 1px darker
+    frame at most. Gradients, hairlines and noise read as dirt at GUI scale 3,
+    so the surface is deliberately bare.
+    """
     s = Surface(w, h, ss=4)
     s.rect(0, 0, w, h, fill=with_a(base, alpha), radius=radius)
-    panel = s.array()
-    shade_rows(panel, 0, 0, w, h, (1.035, 0.955))
-    noise(panel, 0, 0, w, h, 1.6, seed=(x * 31 + y * 17) & 0xFFFF)
-    if shadow:
-        # 1px hairline stroke, then a brighter reveal line along the top edge
-        apply_mask(panel, rounded_ring_mask(w, h, radius, 1), STROKE)
-        apply_mask(panel, top_line_mask(w, h, radius), HAIRLINE)
-        apply_mask(panel, bottom_line_mask(w, h, radius), SHADOW)
-    over(arr, panel, x, y)
+    over(arr, s.array(), x, y)
     return arr
 
 
-def acrylic_panel(arr, x, y, w, h, radius=RADIUS_PANEL, base=ACRYLIC,
-                  alpha=None, shadow=True, grain=2.0):
-    """Fluent Acrylic surface for overlay chrome: dark, translucent, with a
-    soft inner highlight on the top edge (mimics light hitting the layer)."""
+def acrylic_panel(arr, x, y, w, h, radius=0, base=ACRYLIC, alpha=None,
+                  shadow=False, grain=0):
+    """Same flat treatment for dark overlay chrome (tooltips, toasts, HUD)."""
     a = alpha if alpha is not None else base[3]
     s = Surface(w, h, ss=4)
     s.rect(0, 0, w, h, fill=(base[0], base[1], base[2], a), radius=radius)
-    panel = s.array()
-    shade_rows(panel, 0, 0, w, h, (1.18, 0.92))
-    noise(panel, 0, 0, w, h, grain, seed=(x * 13 + y * 7) & 0xFFFF)
-    if shadow:
-        apply_mask(panel, rounded_ring_mask(w, h, radius, 1), ACRYLIC_EDGE)
-        apply_mask(panel, top_line_mask(w, h, radius),
-                   C("#FFFFFF", 46))
-        apply_mask(panel, bottom_line_mask(w, h, radius), ACRYLIC_SHADE)
-    over(arr, panel, x, y)
+    over(arr, s.array(), x, y)
     return arr
 
 
-def fluent_button(w, h, state="normal", radius=RADIUS_CONTROL, accent=ACCENT):
-    """Fluent button: accent fill, 3px nine-slice safe corners, hover lift,
-    pressed sink, disabled neutral.
-
-    Minecraft draws button labels in white (0xFFFFFF) and disabled labels in
-    0xA0A0A0, so the fill has to stay dark enough for those to read.
-    """
+def fluent_button(w, h, state="normal", radius=0, accent=ACCENT):
+    """ZeroUI button: a flat rectangle. Neutral lavender at rest, accent only
+    while focused, muted grey when disabled - matching (180,175,185) /
+    (74,162,111) / (130,125,135) in the reference pack."""
     s = Surface(w, h, ss=4)
     if state == "disabled":
-        fill = FILL_NEUTRAL
-        edge = with_a(C("#000000"), 150)
-        top = C("#FFFFFF", 30)
+        fill = with_a(C("#827D87"), 160)
     elif state == "highlighted":
-        fill = accent
-        edge = with_a(C("#0A4A73"), 220)
-        top = C("#FFFFFF", 96)
+        fill = with_a(accent, 220)
     else:
-        fill = accent
-        edge = with_a(C("#0A4A73"), 190)
-        top = C("#FFFFFF", 70)
+        fill = with_a(MICA, 240)
     s.rect(0, 0, w, h, fill=fill, radius=radius)
-    body = s.array()
-    shade_rows(body, 0, 0, w, h, (1.10, 0.90))
-    apply_mask(body, rounded_ring_mask(w, h, radius, 1), edge)
-    apply_mask(body, top_line_mask(w, h, radius), top)
-    apply_mask(body, bottom_line_mask(w, h, radius),
-               C("#000000", 70 if state != "highlighted" else 100))
-    return body
+    return s.array()
 
 
-def fluent_slot(w=18, h=18, radius=RADIUS_SLOT, surface="light"):
-    """Inset slot well.
+def fluent_slot(w=18, h=18, radius=0, surface="light"):
+    """ZeroUI slot: the panel tone lifted one step, flat, square, no stroke.
 
-    The fill resolves to roughly mid grey (vanilla uses 139,139,139) because
-    item stack counts are drawn in white and need a dark enough well to read.
+    The reference pack reads (195,190,200) slots on a (180,175,185) panel; the
+    lighter fill carries the "well" without a dark hole or inner shadow.
     """
     s = Surface(w, h, ss=4)
-    if surface == "light":
-        base = C("#000000", 96)
-        edge_top = C("#000000", 118)
-        edge_bottom = C("#FFFFFF", 150)
-    else:
-        base = C("#000000", 118)
-        edge_top = C("#000000", 130)
-        edge_bottom = C("#FFFFFF", 30)
-    s.rect(0, 0, w, h, fill=base, radius=radius)
-    slot = s.array()
-    apply_mask(slot, top_line_mask(w, h, radius), edge_top)
-    apply_mask(slot, left_line_mask(w, h, radius), edge_top)
-    apply_mask(slot, bottom_line_mask(w, h, radius), edge_bottom)
-    apply_mask(slot, right_line_mask(w, h, radius), edge_bottom)
-    return slot
+    alpha = 255 if surface == "light" else 200
+    s.rect(0, 0, w, h, fill=with_a(MICA_BRIGHT, alpha), radius=radius)
+    return s.array()
 
 
 # ---- line masks ---------------------------------------------------------

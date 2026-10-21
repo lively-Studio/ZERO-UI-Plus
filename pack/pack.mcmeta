@@ -2,7 +2,13 @@
   "pack": {
     "description": "ZERO-UI+ \u00b7 a modern Fluent-style interface overhaul by lively-Studio",
     "pack_format": 97,
-    "min_format": 63,
-    "max_format": 110
+    "min_format": [
+      69,
+      0
+    ],
+    "max_format": [
+      97,
+      1
+    ]
   }
 }

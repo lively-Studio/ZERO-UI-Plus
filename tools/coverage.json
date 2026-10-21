@@ -519,7 +519,12 @@
   "textures/gui/sprites/world_list/warning_highlighted.png",
   "textures/gui/tab_header_background.png"
  ],
- "shape_suspects": [],
+ "shape_suspects": [
+  {
+   "iou": 0.54,
+   "sprite": "textures/gui/sprites/hud/hotbar_selection.png"
+  }
+ ],
  "sprites_not_covered": [],
  "containers_not_covered": []
 }

@@ -30,13 +30,12 @@ def flat(w, h, color):
     return blank(w, h, color)
 
 
-def tile(w, h, base, seed=0, radius=0, noise_amt=2.4, gain=(1.06, 0.95)):
+def tile(w, h, base, seed=0, radius=0, noise_amt=0, gain=None):
+    """Flat fill used by the widget family. Gradients and grain are gone on
+    purpose: at GUI scale 3 the noise read as smudges rather than texture."""
     s = Surface(w, h, ss=4)
     s.rect(0, 0, w, h, fill=base, radius=radius)
-    a = s.array()
-    shade_rows(a, 0, 0, w, h, gain)
-    noise(a, 0, 0, w, h, noise_amt, seed=seed)
-    return a
+    return s.array()
 
 
 def control_track(w, h, radius=1, fill=(0, 0, 0, 44), top=(0, 0, 0, 74),
@@ -428,29 +427,32 @@ def hud():
 
 def hotbar(w, h):
     a = blank(w, h)
-    acrylic_panel(a, 0, 0, w, h, radius=5, base=ACRYLIC, alpha=182)
+    # Reference geometry: 1px darker frame, (165,160,170,180) bed, and 18px
+    # light slots on a 20px pitch.
+    mica_panel(a, 0, 0, w, h, radius=0, base=C("#A5A0AA"), alpha=180)
+    edge = with_a(MICA_DEEP, 200)
+    apply_mask(a, top_line_mask(w, h, 0), edge)
+    apply_mask(a, bottom_line_mask(w, h, 0), edge)
+    apply_mask(a, left_line_mask(w, h, 0), edge)
+    apply_mask(a, right_line_mask(w, h, 0), edge)
     for i in range(9):
-        over(a, fluent_slot(20, 20, surface="dark"), 1 + i * 20, 1)
+        over(a, fluent_slot(18, 18, surface="dark"), 2 + i * 20, 2)
     return a
 
 
 def hotbar_selection(w, h):
     s = Surface(w, h, ss=4)
-    s.rect(0.5, 0.5, w - 1, h - 1, fill=None, radius=5,
-           outline=(255, 255, 255, 240), ow=2)
-    a = s.array()
-    glow = Surface(w, h, ss=4)
-    glow.rect(0, 0, w, h, fill=None, radius=6,
-              outline=(255, 255, 255, 70), ow=4)
-    over(a, glow.array())
-    return a
+    s.rect(0, 0, w, h, fill=with_a(ACCENT, 60), radius=0)
+    s.rect(1, 1, w - 2, h - 2, fill=None, radius=0,
+           outline=ACCENT, ow=2)
+    return s.array()
 
 
 def offhand(w, h, side):
     a = blank(w, h)
     x0 = 0 if side == "left" else w - 22
-    acrylic_panel(a, x0, 1, 22, 22, radius=4, base=ACRYLIC, alpha=182)
-    over(a, fluent_slot(20, 20, surface="dark"), x0 + 1, 2)
+    mica_panel(a, x0, 1, 22, 22, radius=0, base=C("#A5A0AA"), alpha=180)
+    over(a, fluent_slot(18, 18, surface="dark"), x0 + 2, 2)
     return a
 
 

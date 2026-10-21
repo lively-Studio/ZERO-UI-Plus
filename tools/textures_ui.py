@@ -277,17 +277,11 @@ def menus():
 
 
 def backdrop(size, base, alpha):
-    """Tileable Mica-ish backdrop: soft diagonal gradient plus fine grain.
-    Minecraft blurs screen backdrops, so subtle is correct here."""
+    """Tileable ZeroUI backdrop: a single flat wash. The client blurs these
+    fills anyway, so a gradient only adds banding."""
     s = Surface(size, size, ss=2)
     s.rect(0, 0, size, size, fill=with_a(base, alpha))
-    a = s.array()
-    ramp_x = gradient(size, 0.94, 1.10)
-    ramp_y = np.linspace(0.94, 1.10, a.shape[0])[:, None, None]
-    body = a[..., :3].astype(np.float32) * ramp_x * ramp_y
-    a[..., :3] = np.clip(body, 0, 255).astype(np.uint8)
-    noise(a, 0, 0, size, size, 1.8, seed=size)
-    return a
+    return s.array()
 
 
 def separator(w, h):

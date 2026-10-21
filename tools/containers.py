@@ -36,7 +36,8 @@ and the visible top and bottom corners stay rounded.
 """
 import numpy as np
 
-from fluent import (ACCENT, ACCENT_DARK, ACCENT_LIGHT, C, MICA, STROKE,
+from fluent import (ACCENT, ACCENT_DARK, ACCENT_LIGHT, C, MICA, MICA_BRIGHT,
+                    STROKE,
                     SURFACE_DARKER, Surface, apply_mask, bottom_line_mask,
                     fluent_slot, over, rounded_ring_mask, shade_rows,
                     top_line_mask, with_a)
@@ -197,6 +198,27 @@ def flat_boxes(a, region):
             if int(tone) == FILL:
                 continue  # already collected as a slot slab
             out.append((bx, by, w, h, int(tone)))
+    return out
+
+
+def black_panes(a, region):
+    """Solid near-black rectangles: the paddocks vanilla reserves for a live
+    3D model (player preview, horse, nautilus). Pure black punches a hole in a
+    light panel, so they are found here and re-toned instead."""
+    dark = region & (a[:, :, 3] > 0) & (a[:, :, :3].max(axis=2) < 24)
+    lab, n = label(dark, CROSS)
+    out = []
+    for i in range(1, n + 1):
+        comp = lab == i
+        area = int(comp.sum())
+        if area < 500:
+            continue
+        bx, by, w, h = bbox_of(comp)
+        if w < 20 or h < 20 or w > 120 or h > 120:
+            continue
+        if area < 0.85 * w * h:
+            continue
+        out.append((bx, by, w, h))
     return out
 
 
@@ -399,14 +421,10 @@ def redraw(name):
 
     out = np.zeros(src.shape, dtype=np.uint8)
 
-    # 1. light Mica window with a Fluent radius
+    # 1. solid ZeroUI window: one flat tone, square corners, no stroke
     s = Surface(w, h, ss=4)
-    s.rect(0, 0, w, h, fill=with_a(MICA, 240), radius=RADIUS)
+    s.rect(0, 0, w, h, fill=with_a(MICA, 255), radius=0)
     panel = s.array()
-    shade_rows(panel, 0, 0, w, h, (1.035, 0.955))
-    apply_mask(panel, rounded_ring_mask(w, h, RADIUS, 1), STROKE)
-    apply_mask(panel, top_line_mask(w, h, RADIUS), (255, 255, 255, 210))
-    apply_mask(panel, bottom_line_mask(w, h, RADIUS), (0, 0, 0, 34))
     panel[..., 3] = (panel[..., 3].astype(np.float32)
                      * region.astype(np.float32)).astype(np.uint8)
     over(out, panel, x0, y0)
@@ -421,6 +439,9 @@ def redraw(name):
     # 3. hand-placed affordances vanilla drew in flat grey survive verbatim
     #    (coloured art wins over the inset backdrop it may sit on)
     keep = info["keep"].copy()
+    for bx, by, bw, bh in black_panes(src, info["region"]):
+        over(out, preview_pane(bw, bh), bx, by)
+        keep[by:by + bh, bx:bx + bw] = False
     if keep.any():
         layer = np.zeros_like(src)
         layer[keep] = src[keep]
@@ -439,32 +460,29 @@ def redraw(name):
     return out
 
 
-def inset_panel(w, h, radius=5):
-    """A recessed surface for lists, previews and scroll tracks."""
-    radius = min(radius, max(1, min(w, h) // 2))
+def inset_panel(w, h, radius=0):
+    """A recessed surface for lists, previews and scroll tracks: the same flat
+    lift the slots use, so lists and grids read as one family."""
     s = Surface(w, h, ss=4)
-    s.rect(0, 0, w, h, fill=(0, 0, 0, 86), radius=radius)
-    a = s.array()
-    apply_mask(a, top_line_mask(w, h, radius), (0, 0, 0, 116))
-    apply_mask(a, bottom_line_mask(w, h, radius), (255, 255, 255, 130))
-    apply_mask(a, rounded_ring_mask(w, h, radius, 1), (0, 0, 0, 64))
-    return a
+    s.rect(0, 0, w, h, fill=with_a(MICA_BRIGHT, 255), radius=radius)
+    return s.array()
 
 
-def dark_pane(w, h, radius=5):
-    """A dark inset for panes the client fills itself: entity previews it
-    renders a live 3D model into, and icon lists it draws sprites over (the
-    beacon's two effect panes). Vanilla paints these near-black so the model
-    reads against them; a deep neutral keeps that contrast without the flat
-    hole pure #000 punches in a light panel."""
-    radius = min(radius, max(1, min(w, h) // 2))
+def dark_pane(w, h, radius=0):
+    """Panes the client paints itself (live entity previews, beacon effect
+    lists). The reference pack backs these with (150,145,155), dark enough for
+    a model silhouette yet still part of the lavender family."""
     s = Surface(w, h, ss=4)
-    s.rect(0, 0, w, h, fill=SURFACE_DARKER, radius=radius)
-    a = s.array()
-    apply_mask(a, top_line_mask(w, h, radius), (0, 0, 0, 160))
-    apply_mask(a, bottom_line_mask(w, h, radius), (255, 255, 255, 46))
-    apply_mask(a, rounded_ring_mask(w, h, radius, 1), (0, 0, 0, 96))
-    return a
+    s.rect(0, 0, w, h, fill=(150, 145, 155, 245), radius=radius)
+    return s.array()
+
+
+def preview_pane(w, h, radius=0):
+    """Backing for the player-model paddock - same tone as dark_pane, no
+    rounding, so it sits flush with the flat window around it."""
+    s = Surface(w, h, ss=4)
+    s.rect(0, 0, w, h, fill=(150, 145, 155, 245), radius=radius)
+    return s.array()
 
 
 def flow_arrow(w, h):
